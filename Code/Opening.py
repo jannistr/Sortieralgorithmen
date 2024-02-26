@@ -15,7 +15,7 @@ class OpeningManim(Scene):
 
 
         # Bild hinzufuegen 
-        image1 = ImageMobject('Ralf.png')
+        image1 = ImageMobject('ralf.png')
         image1.scale(0.2) 
         image1.move_to(UP*3 + LEFT*6.5)
         self.add(image1)
