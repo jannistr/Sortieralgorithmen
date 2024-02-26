@@ -1,7 +1,7 @@
 # Sortieralgorithmen
 Die folgenden Pyhton Dateien erfordern eine installierte Manim-Umgebung.
 
-pip install manim
+"pip install manim"
 
 Das erstellte Video besteht aus den Szenen der einzelnen Dateien, in folgender Reihenfolge:
 
