@@ -3,213 +3,226 @@ import os
 import random
 
 
-class BubbleSortVisual(Scene):
+class OpeningManim(Scene):
     def construct(self):
 
-        title = Text("Bubble Sort", font_size=40, font="Sans", color="orange").center()
-        self.play(Write(title))
+        # Erstellung - First Titel
+        first_title = Text('Sortieralgorithmen', font="Sans", font_size=40, color=WHITE).center()
 
-        #Box and Sub-Title
-        box = SurroundingRectangle(title, corner_radius=0.2, color=ORANGE)
-        self.play(Create(box))
-        self.play(box.animate.shift(UP),title.animate.shift(UP))
-        sub = Text('Im Folgenden wird die Funktionsweise des Bubble Sort ALG erklärt.\n', color=WHITE, font="Sans", font_size=30)
-        sub.next_to(box, DOWN, buff=0.5)
-        self.play(Write(sub))
+        # Einblenden - First Titel
+        self.play(Write(first_title))
         self.wait(1)
 
-        # Change to the next scene
-        self.play(FadeOut(title), FadeOut(box), FadeOut(sub))
-        self.wait(1)
 
-        init = Text("Zuerst betrachten wir neun verschiedene Zahlen, die nicht sortiert sind.",color=WHITE, font="Sans", font_size=30).center()
-        self.play(Write(init))
-        self.wait(1)
-        self.play(FadeOut(init))
-
-        # Initialisiere die Zahlen, die sortiert werden sollen
-        numbers = [5, 9, 1, 3, 8, 2, 7, 4, 6]
-
-        # Erstelle Balken und Beschriftungen
-        bars = []
-        start_x = -len(numbers) * 0.4 / 2  # Startposition für die Zentralisierung der Balken
-        for i, num in enumerate(numbers):
-            bar = Rectangle(height=num*0.5, width=0.4, fill_color=BLUE, fill_opacity=0.8)
-            bar_text = Text(str(num), font_size=24, color=BLACK).move_to(bar.get_center())
-            bar.add(bar_text)
-            bar.move_to(RIGHT * (i * 0.5 + start_x))  # Anpassung für die zentrale Positionierung
-            bars.append(bar)
-        
-        # Zeige die initialen Balken
-        self.play(AnimationGroup(*[FadeIn(bar) for bar in bars], lag_ratio=0.5))
-        self.wait(2)
-    
-        n = len(numbers)
-        for i in range(n):
-            for j in range(0, n-i-1):
-                # Einfärben der Balken, die verglichen werden
-                self.play(
-                    bars[j].animate.set_fill(GREEN),
-                    bars[j+1].animate.set_fill(GREEN),
-                    run_time=0.3
-                )
-                
-                # Berechne die Position für den Vergleichstext, um ihn unter den Balken zu platzieren
-                middle_point = (bars[j].get_center() + bars[j+1].get_center()) / 2
-                compare_text = Text("<" if numbers[j] < numbers[j+1] else ">", font_size=28, color=WHITE)
-                compare_text.move_to(middle_point + DOWN * (max(bars[j].height, bars[j+1].height) / 2 + 0.75))
-                
-                # Zeige den Vergleichstext an
-                self.play(Write(compare_text), run_time=0.3)
-                
-                if numbers[j] > numbers[j+1]:
-                    # Tausche Zahlen im Array
-                    numbers[j], numbers[j+1] = numbers[j+1], numbers[j]
-                    
-                    # Tausche Balken
-                    bars[j], bars[j+1] = bars[j+1], bars[j]
-                    # Führe den Tausch aus und lasse den Vergleichstext währenddessen sichtbar
-                    self.play(Swap(bars[j], bars[j+1]), run_time=0.3)
-                
-                # Entferne den Vergleichstext nach dem Tauschvorgang
-                self.play(FadeOut(compare_text), run_time=0.3)
-                
-                # Balken zurückfärben nach dem Vergleich/Tausch
-                self.play(
-                    bars[j].animate.set_fill(BLUE),
-                    bars[j+1].animate.set_fill(BLUE),
-                    run_time=0.3
-                )
-
-
-        self.play(AnimationGroup(*[FadeOut(bar) for bar in bars]))
-        self.wait(2)
-
-
-        self.wait(1)
-        text = Text('Zeitkomplexität', font="Sans", font_size=30, color=WHITE)
-        text.center()
-        self.play(AddTextLetterByLetter(text, time_per_char = 0.2))
-
-        box = SurroundingRectangle(text, corner_radius=0.2, color=ORANGE)
-        self.play(Create(box))
-        self.play(box.animate.shift(UP*3),text.animate.shift(UP*3))
-        self.wait(2)
-
-        image1 = ImageMobject('clock.png')
+        # Bild hinzufuegen 
+        image1 = ImageMobject('Ralf.png')
         image1.scale(0.2) 
-
-        image1.move_to(UP*0+LEFT*0)
-
+        image1.move_to(UP*3 + LEFT*6.5)
         self.add(image1)
-        self.wait(12)
+
+        # Bild verschieben
+        image2 = ImageMobject('mark.png')
+        image2.scale(0.2) 
+        image2.move_to(UP*3 + LEFT*5.5)
+        self.add(image2)
 
 
-        text2 = Text('best case', color=WHITE, font_size=24, font="Sans")
-        text2.move_to([-3.5,1.85,0])
-        box2 = SurroundingRectangle(text2, corner_radius=0.2, color=ORANGE)
-        self.add(text2)
-        self.add(box2)
-        self.play(Create(box2))
+        # Verwendung von animate für Skalierung und Bewegung
+        self.play(first_title.animate.scale(0.5).to_edge(UP + RIGHT))
         self.wait(2)
 
-        text4 = Text('O(n)', color=RED, font_size=24)
-        text4.move_to([3,1.85,0])
-        self.add(text4)
-        self.wait(8)
 
-        text6 = Text('average case', color=WHITE, font_size=24)
-        text6.move_to([-3.3,0.3,0])
-        box4 = SurroundingRectangle(text6, corner_radius=0.2, color=ORANGE)
-        self.add(text6)
-        self.add(box4)
-        self.play(Create(box4))
+        # Erstellung - Bubble Sort, Bucket Sort und Merge Sort
+        bubble = Text('Bubble Sort', font="Sans", font_size=40, color=WHITE).to_edge(LEFT, buff=0.5)
+        bucket = Text('Bucket Sort', font="Sans", font_size=40, color=WHITE).to_edge(RIGHT, buff=0.5)
+        merge = Text('Merge Sort', font="Sans", font_size=40, color=WHITE).center()
+
+        # Einblenden - Bubble Sort, Bucket Sort und Merge Sort
+        self.play(Write(bubble), Write(bucket),Write(merge))
         self.wait(2)
 
-        text7 = Text('O(n*n)', color=RED, font_size=24)
-        text7.move_to([3,0.3,0])
-        self.add(text7)
-        self.wait(8)
-
-        text3 = Text('worst case', color=WHITE, font_size=24)
-        text3.move_to([-3.4,-1.2,0])
-        box3 = SurroundingRectangle(text3, corner_radius=0.2, color=ORANGE)
-        self.add(text3)
-        self.add(box3)
-        self.play(Create(box3))
-        self.wait(8)
-
-        text5 = Text('O(n*n)', color=RED, font_size=24)
-        text5.move_to([3,-1.2,0])
-        self.add(text5)
-        self.wait(5)
-
-        self.play(FadeOut(text6, box4, text7, box3, text5, text3, text4), image1.animate.move_to(DOWN*3+RIGHT*6))
-        self.play(text4.animate.move_to([ -3.5, 1, 0]))
-        self.wait(1)
-
-        star1 = Star(n=5, outer_radius=0.3, inner_radius=0.2, fill_color=YELLOW_D, 
-                    fill_opacity=1, stroke_color=YELLOW, stroke_width=0.5) 
-        star2 = Star(n=5, outer_radius=0.3, inner_radius=0.2, fill_color=YELLOW_D, 
-                    fill_opacity=1, stroke_color=YELLOW, stroke_width=0.5) 
-        star3 = Star(n=5, outer_radius=0.3, inner_radius=0.2, fill_color=YELLOW_D, 
-                    fill_opacity=1, stroke_color=YELLOW, stroke_width=0.5) 
+        # Ausblenden - Bucket Sort und Merge Sort
+        self.play(FadeOut(bucket), FadeOut(merge), run_time=1)
         
+
+        # Verschiebung und Skalierung des Bubble Sort  
+        self.play(bubble.animate.scale(2).move_to(ORIGIN), run_time=2)
+
+        # Erstellung einer Box um Bubble Sort 
+        bubble_box = SurroundingRectangle(bubble, corner_radius=0.2, color=RED)
+
+        # Einblenden - Bubble Box
+        self.play(Create(bubble_box))
+
+        # Verschiebung nach oben von Bubble Sort
+        self.play(bubble_box.animate.shift(UP),bubble.animate.shift(UP))
+
+        # Erstellung - Bubble Sort Erklärung
+        bubble_explanation = Text(
+            "Bubble Sort vergleicht wiederholt benachbarte Elemente \nund tauscht sie aus, wenn sie in der falschen Reihenfolge sind.",
+        font_size=24, font="Sans", line_spacing=1.5
+        ).next_to(bubble, DOWN, buff=0.5)
+
+        # Einblenden - Bubble Sort Erklärung
+        self.play(Write(bubble_explanation), run_time=3)
+        self.wait(8)
+
+
+        # Ausblenden- Bubble Sort, Bubble Sort Erklärung und Bubble Box 
+        self.play(FadeOut(bubble_explanation), FadeOut(bubble), FadeOut(bubble_box), run_time=1)
+        self.wait(1)
+
+
+        # Einbleden - Merge Sort
+        self.play(FadeIn(merge), run_time=1) 
+
+        # Verschiebung und Skalierung von Merge Sort 
+        self.play(merge.animate.scale(2).move_to(ORIGIN), run_time=2)
+
+        # Erstellung einer Box um Merge Sort 
+        merge_box = SurroundingRectangle(merge, corner_radius=0.2, color=GREEN)
+
+        # Einblenden - Merge Box 
+        self.play(Create(merge_box))
+    
+        # Verschiebung nach oben von Merge Sort
+        self.play(merge_box.animate.shift(UP), merge.animate.shift(UP))
+
+        # Erstellung - Merge Sort Erklärung
+        merge_explanation = Text(
+            "Die grundlegende Idee von Merge Sort besteht darin, das zu sortierende \nArray in kleinere Arrays zu teilen, diese rekursiv zu sortieren und anschließend \ndie sortierten Arrays wieder zu einem einzigen sortierten Array zusammenzuführen.",
+            font_size=24, font="Sans", line_spacing=1.5
+        ).next_to(merge, DOWN, buff=0.5)
+
+        # Einblenden- Merge Sort Erklärung
+        self.play(Write(merge_explanation), run_time=3)
+        self.wait(7)
         
-        star1.move_to([1.7,0.9,0]) 
-        self.play(FadeIn(star1),star1.animate.shift(UP)) 
-        star2.move_to([2.4,0.9,0]) 
-        self.play(FadeIn(star2),star2.animate.shift(UP))
-        star3.move_to([3.1,0.9,0]) 
-        self.play(FadeIn(star3),star3.animate.shift(UP))
+
+        # Ausblenden - Merge Sort, Merge Sort Erklärung und Merge Box
+        self.play(FadeOut(merge), FadeOut(merge_box), FadeOut(merge_explanation), run_time=1)
         self.wait(1)
 
-        TEXT_SPEED = 0.001
-        sub = Text('Der Best Case beim Bubble Sort Algorithmus tritt ein, wenn die Liste \nbereits sortiert ist und keine Vertauschungen erforderlich sind.', color=WHITE, font="Sans", font_size=20)
-        sub.move_to([0, -0.3, 0])
-        self.wait(2)
-        bsp_sub = Text('Bsp: 1     2      3      4      5      6      7', color=WHITE, font="Sans", font_size=20)
-        bsp_sub.move_to([0,-1.5,0])
-        self.play(AddTextLetterByLetter(sub, time_per_char=TEXT_SPEED))
-        self.add(bsp_sub)
-        self.wait(3)
 
-        text6.move_to([-3.3, 1.84, 0])
-        box4.move_to([-3.3, 1.84, 0])
-        self.play(FadeOut(sub, text4, text2, box2, bsp_sub), FadeIn(text6, box4))
-        self.play(star3.animate.set_fill(opacity=0))
-        text7.move_to([-3.5, 1, 0])
-        self.play(FadeIn(text7))
+        # Einblenden - Bucket Sort
+        self.play(FadeIn(bucket), run_time=1)  
+
+        # Verschiebung und Skalierung von Bucket Sort 
+        self.play(bucket.animate.scale(2).move_to(ORIGIN), run_time=2)
+
+        # Erstellung - Bucket Box
+        bucket_box = SurroundingRectangle(bucket, corner_radius=0.2, color=BLUE)
+
+        # Einblenden - Bucket Box 
+        self.play(Create(bucket_box))
+
+        # Verschiebung nach oben von Bucket Sort 
+        self.play(bucket_box.animate.shift(UP), bucket.animate.shift(UP))
+
+        # Erstellung - Bucket Sort Erklärung
+        bucket_explanation = Text(
+            "Bucket Sort verteilt die Array-Elemente in eine Reihe von Buckets. \nJeder Bucket wird dann einzeln sortiert, durch einen anderen Sortieralgorithmus.",
+            font_size=24, font="Sans", line_spacing=1.5
+        ).next_to(bucket, DOWN, buff=0.5)
+
+        # Einblenden - Bucket Sort Erklärung
+        self.play(Write(bucket_explanation), run_time=3)
+        self.wait(7)
+
+
+        # Ausblenden - Bucket Sort, Bucket Sort Erklärung und Bucket Box
+        self.play(FadeOut(bucket), FadeOut(bucket_box), FadeOut(bucket_explanation), run_time=1)
         self.wait(1)
 
-        sub2 = Text('Der Average Case reflektiert eine zufällig sortierte Liste mit einer durchschnittlichen\nAnzahl von Vertauschungen.', color=WHITE, font="Sans", font_size=20)
-        sub2.move_to([0, -0.3, 0])
-        self.wait(3)
-        bsp_sub2 = Text('Bsp: 3    1      5      2      4      7      6', color=WHITE, font="Sans", font_size=20)
-        self.play(AddTextLetterByLetter(sub2, time_per_char=TEXT_SPEED))
-        bsp_sub2.move_to([0,-1.5,0])
-        self.add(bsp_sub2)
+
+        # Erstellung - Vergleich und Nicht Vergleich
+        vergleich = Text("Vergleichsbasierte\nAlgorithmen", line_spacing=1, font="Sans", font_size=40)
+        not_vergleich = Text("Nicht Vergleichsbasierte\nAlgorithmen", line_spacing=1,font="Sans", font_size=40)
+        not_vergleich.next_to(vergleich, RIGHT, buff=1)
+        
+        # Einblenden - Vergleich und Nicht Vergleich
+        self.play(Write(vergleich), Write(not_vergleich))
         self.wait(4)
-        
-        text3.move_to([-3.4, 1.84, 0])
-        box3.move_to([-3.4, 1.84, 0])
-        self.play(FadeOut(sub2, text6, box4, text7, bsp_sub2),FadeIn(text3, box3))
-        self.play(star2.animate.set_fill(opacity=0))
-        text5.move_to([-3.5, 1, 0])
-        self.play(FadeIn(text5))
+
+        # Ausblenden - Nicht Vergeleich
+        self.play(FadeOut(not_vergleich), run_time=1)
+
+
+        # Skalierung und Verschiebung von Vergleich
+        self.play(vergleich.animate.scale(1).move_to(ORIGIN), run_time=2)
+        self.wait(1)
+        self.play(vergleich.animate.shift(UP))
         self.wait(1)
 
-        sub3 = Text('Der Worst Case tritt ein, wenn die Liste in umgekehrter Reihenfolge sortiert ist, \nwas die maximale Anzahl von Vertauschungen erfordert.', color=WHITE, font="Sans", font_size=20)
-        sub3.move_to([0, -0.3, 0])
-        self.wait(3)
-        bsp_sub3 = Text('Bsp: 7      6      5      4      3      2      1', color=WHITE, font="Sans", font_size=20)
-        self.play(AddTextLetterByLetter(sub3, time_per_char=TEXT_SPEED))
-        bsp_sub3.move_to([0,-1.5,0])
-        self.add(bsp_sub3)
+        # Erstellung - Vergleich Erklärung
+        vergleich_explanation = Text(
+            "Vergleichsbasierte Algorithmen sortieren Daten, indem sie Paare von Elementen\nvergleichen und auf Basis dieser Vergleiche Entscheidungen treffen.",
+            font_size=24, font="Sans", line_spacing=1.5
+        ).next_to(vergleich, DOWN, buff=0.5)
+
+        # Einblenden - Vergleich Erklärung
+        self.play(Write(vergleich_explanation), run_time=3)
+        self.wait(4)
+
+        # Ausblenden - Vergleich Erklärung
+        self.play(FadeOut(vergleich_explanation))
+
+        # Erstellung/Einblenden - Bubble Sort und Merge Sort + Bubble Box und Merge Box
+        bubble = Text('Bubble Sort', font="Sans", font_size=40, color=WHITE).to_edge(LEFT, buff=0.5)
+        bubble.shift(DOWN * 1)
+        self.play(Write(bubble))
+        bubble_box = SurroundingRectangle(bubble, corner_radius=0.2, color=RED)
+        self.play(Create(bubble_box))
+        self.wait(2)
+        merge = Text('Merge Sort', font="Sans", font_size=40, color=WHITE).to_edge(RIGHT, buff=0.5)
+        merge.shift(DOWN * 1)
+        self.play(Write(merge))
+        merge_box = SurroundingRectangle(merge, corner_radius=0.2, color=GREEN)
+        self.play(Create(merge_box))
+        self.wait(2)
+
+
+        # Ausblenden - Vergleich, Bubble Sort, Merge Sort, Bubble Box und Merge Box
+        self.play(FadeOut(vergleich), FadeOut(bubble), FadeOut(merge), FadeOut(bubble_box), FadeOut(merge_box), run_time=1)
+
+
+        # Einblenden - Nicht vergleich
+        self.play(FadeIn(not_vergleich,run_time=1))     
+
+        # Skalierung und Verschiebung von Nicht Vergleich 
+        self.play(not_vergleich.animate.scale(1).move_to(ORIGIN), run_time=2)
+        self.wait(1)
+        self.play(not_vergleich.animate.shift(UP))   
+        self.wait(1)
+
+        # Erstellung - Nicht Vergleich Erklärung
+        not_vergleich_explanation = Text(
+            "Nicht-vergleichsbasierte Algorithmen sortieren Daten nicht durch Vergleichen \nvon Elementpaaren, sondern nutzen die Struktur der Daten selbst, \num eine schnelle Sortierung zu erreichen.",
+            font_size=24, font="Sans", line_spacing=1.5
+        ).next_to(not_vergleich, DOWN, buff=0.5)
+
+        # Einblenden - Nicht Vergleich
+        self.play(Write(not_vergleich_explanation), run_time=3)
         self.wait(5)
+
+        # Ausblenden - Nicht Vergleich
+        self.play(FadeOut(not_vergleich_explanation))   
+
+        # Erstellung/Einblenden - Bucket Sort + Bucket Box 
+        bucket = Text('Bucket Sort', font="Sans", font_size=40, color=WHITE).center()
+        bucket.shift(DOWN * 1)
+        self.play(Write(bucket))
+        bucket_box = SurroundingRectangle(bucket, corner_radius=0.2, color=BLUE)
+        self.play(Create(bucket_box))
+        self.wait(4)
+
+
+        # Ausblenden - Not Vergleich, Bucket Sort und Bucket Box
+        self.play(FadeOut(not_vergleich), FadeOut(bucket_box), FadeOut(bucket))
+
 
 
 if __name__ == "__main__":
     os.system(f"manim -pqk {__file__} MainAnim")
+    #os.system(f"manim -pql {__file__} MainAnim")
     #os.system(f"manim -qh {__file__} MainAnim")
-    #os.system(f"manim -pqk {__file__} MainAnim")
