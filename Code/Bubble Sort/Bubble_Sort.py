@@ -19,6 +19,7 @@ class BubbleSortVisual(Scene):
         self.play(Create(box))
         self.play(box.animate.shift(UP),title.animate.shift(UP))
 
+
         # Erstellung - Sub Erklärung 
         sub = Text('Im Folgenden wird die Funktionsweise des Bubble Sort ALG erklärt.\n', color=WHITE, font="Sans", font_size=30)
         sub.next_to(box, DOWN, buff=0.5)
@@ -31,7 +32,8 @@ class BubbleSortVisual(Scene):
         self.play(FadeOut(title), FadeOut(box), FadeOut(sub))
         self.wait(1)
 
-        # Ertellung - Erklärung Initialisierung der Zahlen (init)
+
+        # Erstellung - Erklärung Initialisierung der Zahlen (init)
         init = Text("Zuerst betrachten wir neun verschiedene Zahlen, die nicht sortiert sind.",color=WHITE, font="Sans", font_size=30).center()
 
         # Einblenden - Erklärung Initialisierung der Zahlen (init)
@@ -98,6 +100,7 @@ class BubbleSortVisual(Scene):
         # Ausblenden - Balken 
         self.play(AnimationGroup(*[FadeOut(bar) for bar in bars]))
         self.wait(3)
+
 
         # Erstellung - Zeitkomplexität
         text = Text('Zeitkomplexität', font="Sans", font_size=30, color=WHITE)
