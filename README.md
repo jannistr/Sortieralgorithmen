@@ -1,12 +1,17 @@
 # Sortieralgorithmen
 Die folgenden Pyhton Dateien erfordern eine installierte Manim-Umgebung.
+
+pip install manim
+
 Das erstellte Video besteht aus den Szenen der einzelnen Dateien, in folgender Reihenfolge:
 
 Opening.py:
-
+In der Einstiegsszene werden die 3 Sortieralgorithmen einmal kurz vorgestellt. 
+Außerdem werden die Begriffe Vergleichsbasierte und Nicht Vergleichsbasierte Algorithmen erläutert und die 3 Sortieralgorithmen dem entsprechenden Begriff zugeordnet.
 
 Bubble_Sort.py:
-
+In dieser Szene wird der Bucket Sort anhand eines Beispiels visuell dargestellt. 
+Anschließend wird auf die zeitliche Komplexität eingegangen.
 
 einleitung_merge_sort.py:
 Diese Szene stellt das Grundsätzliche Prinzip des Merge Sort Algorithmus dar.
@@ -20,7 +25,8 @@ Dazu werden 8 unsortierte Balken schrittweise in die richtige Reihenfolge gebrac
 complexity_merge_sort.py:
 Diese Szene zeigt die Zeitkomplexität, die der Merge Sort Algorithmus hat.
 
-bucket_sort.py: In dieser Szene wird kurz die Theorie des Bucket Sort vorgestellt und anhand eines Beispiels der Ablauf visuell dargestellt.
+bucket_sort.py: 
+In dieser Szene wird kurz die Theorie des Bucket Sort vorgestellt und anhand eines Beispiels der Ablauf visuell dargestellt.
 
 
 complexity.py:
