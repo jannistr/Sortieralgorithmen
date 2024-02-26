@@ -20,11 +20,11 @@ Dazu werden 8 unsortierte Balken schrittweise in die richtige Reihenfolge gebrac
 complexity_merge_sort.py:
 Diese Szene zeigt die Zeitkomplexität, die der Merge Sort Algorithmus hat.
 
-bucket_sort.py:
+bucket_sort.py: In dieser Szene wird kurz die Theorie des Bucket Sort vorgestellt und anhand eines Beispiels der Ablauf visuell dargestellt.
 
 
 complexity.py:
+Diese Szene stellt die Zeitkomplexität des Bucket Sort Algorithmus dar.
 
-
-vergleich.py
+vergleich.py:
 Als Fazit werden in dieser Szene die drei Algorithmen anhand verschiedener Kriterien miteinander verglichen.
